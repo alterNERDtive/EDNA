@@ -2,16 +2,47 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;net5.0</TargetFrameworks>
+    <PackageId>alterNERDtive.EDNA</PackageId>
+    <Version>0.0.1</Version>
+    <Company>alterNERDtive</Company>
+    <Authors>alteNERDtive</Authors>
+    <Description>EDNA is a site-agnostic library for accessing 3rd-party information about star systems in Elite Dangerous.</Description>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://alterNERDtive.github.io/EDNA</PackageProjectUrl>
+    <Copyright>© 2021 alterNERDtive</Copyright>
+    <PackageIcon>glider.jpg</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/alterNERDtive/EDNA</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Elite, EDSM, Spansh, EDTS</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EDSM\EDSM.csproj" />
-    <ProjectReference Include="..\EDTS\EDTS.csproj" />
-    <ProjectReference Include="..\Spansh\Spansh.csproj" />
+    <ProjectReference Include="..\EDSM\EDSM.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\EDTS\EDTS.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Spansh\Spansh.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\glider.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
 
 </Project>
