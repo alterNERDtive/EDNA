@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDNA", "EDNA\EDNA.csproj", "{544D0ACE-C5B9-47A3-88F8-F81B248FF399}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDSM", "EDSM\EDSM.csproj", "{00E28477-4EDC-4721-ABCC-BFEC346CDEF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spansh", "Spansh\Spansh.csproj", "{CDC9A6DB-B36C-448A-B34A-7654DD14278D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{335007EA-EC9B-43DC-9912-CC4AE955FB65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDTS", "EDTS\EDTS.csproj", "{113052DF-7F72-4302-8F92-4D9521D72E94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6155D836-CDE8-41B8-A12A-7628E6BA20DE}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.build.props = Directory.build.props
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{544D0ACE-C5B9-47A3-88F8-F81B248FF399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544D0ACE-C5B9-47A3-88F8-F81B248FF399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544D0ACE-C5B9-47A3-88F8-F81B248FF399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544D0ACE-C5B9-47A3-88F8-F81B248FF399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00E28477-4EDC-4721-ABCC-BFEC346CDEF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00E28477-4EDC-4721-ABCC-BFEC346CDEF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00E28477-4EDC-4721-ABCC-BFEC346CDEF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00E28477-4EDC-4721-ABCC-BFEC346CDEF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC9A6DB-B36C-448A-B34A-7654DD14278D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC9A6DB-B36C-448A-B34A-7654DD14278D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC9A6DB-B36C-448A-B34A-7654DD14278D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC9A6DB-B36C-448A-B34A-7654DD14278D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335007EA-EC9B-43DC-9912-CC4AE955FB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335007EA-EC9B-43DC-9912-CC4AE955FB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335007EA-EC9B-43DC-9912-CC4AE955FB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335007EA-EC9B-43DC-9912-CC4AE955FB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113052DF-7F72-4302-8F92-4D9521D72E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113052DF-7F72-4302-8F92-4D9521D72E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{113052DF-7F72-4302-8F92-4D9521D72E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{113052DF-7F72-4302-8F92-4D9521D72E94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {78C4BF41-7FAF-4183-A6A4-0B563F5A5C2A}
+	EndGlobalSection
+EndGlobal

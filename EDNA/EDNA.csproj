@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48;net5.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EDSM\EDSM.csproj" />
+    <ProjectReference Include="..\EDTS\EDTS.csproj" />
+    <ProjectReference Include="..\Spansh\Spansh.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
