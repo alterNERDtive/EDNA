@@ -87,7 +87,7 @@ namespace alterNERDtive.Edna.Edts
         /// <summary>
         /// Gets the precision to which the location can be calculated.
         /// </summary>
-        public int Precision { get; }
+        public int Precision { get; private set; }
     }
 
     /// <summary>
@@ -132,10 +132,10 @@ namespace alterNERDtive.Edna.Edts
             return new StarSystem(
                 name: name,
                 coordinates: new Location(
-                    x: json["position"]["x"],
-                    y: json["position"]["y"],
-                    z: json["position"]["z"],
-                    precision: json["uncertainty"]));
+                    x: (int)json["position"]["x"],
+                    y: (int)json["position"]["y"],
+                    z: (int)json["position"]["z"],
+                    precision: (int)json["uncertainty"]));
         }
     }
 }
