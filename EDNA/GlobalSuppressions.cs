@@ -19,4 +19,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element should begin with upper-case letter", Justification = "It’s a brand name, silly!", Scope = "namespace", Target = "~N:alterNERDtive.EDNA")]
+[assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element should begin with upper-case letter", Justification = "It’s a brand name, silly!", Scope = "namespace", Target = "~N:alterNERDtive.Edna")]

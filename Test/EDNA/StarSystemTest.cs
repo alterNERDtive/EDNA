@@ -1,4 +1,4 @@
-﻿// <copyright file="Stations.cs" company="alterNERDtive">
+﻿// <copyright file="SystemTest.cs" company="alterNERDtive">
 // Copyright 2021 alterNERDtive.
 //
 // This file is part of EDNA.
@@ -22,24 +22,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
-namespace alterNERDtive.Edna
+using alterNERDtive.Edna;
+
+namespace Test.Edna
 {
     /// <summary>
-    /// Provides access to functions that deal with several stations at once.
+    /// Tests all things Starsystem.
     /// </summary>
-    public class Stations
+    public class StarSystemTest
     {
         /// <summary>
-        /// Finds outdated stations. A station is outdated if it has not had its
-        /// data updated in a given time span.
+        /// Tests if Sol really rests at 0,0,0.
         /// </summary>
-        /// <param name="minimumAge">The minimum age to be considered outdated.</param>
-        /// <param name="count">The maximum count of outdated stations to return.</param>
-        /// <returns>A list of outdated stations, sorted by age, descending.</returns>
-        public static List<Station> FindOutdatedStations(TimeSpan minimumAge, int count)
+        [Fact]
+        public void SolAtZero()
         {
-            throw new NotImplementedException();
+            Distance distance;
+
+            distance = StarSystem.Find("Sol").DistanceTo(new Location(0, 0, 0));
+            Assert.Equal(expected: 0, actual: distance.Value);
+            Assert.Equal(expected: 0, actual: distance.Precision);
+
+            distance = StarSystem.Find("Sol").DistanceTo(new Location(0, 0, 0, 0));
+            Assert.Equal(expected: 0, actual: distance.Value);
+            Assert.Equal(expected: 0, actual: distance.Precision);
         }
     }
 }

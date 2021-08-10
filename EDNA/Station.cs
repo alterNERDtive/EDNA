@@ -1,4 +1,4 @@
-﻿// <copyright file="Stations.cs" company="alterNERDtive">
+﻿// <copyright file="Station.cs" company="alterNERDtive">
 // Copyright 2021 alterNERDtive.
 //
 // This file is part of EDNA.
@@ -26,20 +26,12 @@ using System.Threading.Tasks;
 namespace alterNERDtive.Edna
 {
     /// <summary>
-    /// Provides access to functions that deal with several stations at once.
+    /// A station in the galaxy, both planetside and in space.
     /// </summary>
-    public class Stations
+    public class Station
     {
-        /// <summary>
-        /// Finds outdated stations. A station is outdated if it has not had its
-        /// data updated in a given time span.
-        /// </summary>
-        /// <param name="minimumAge">The minimum age to be considered outdated.</param>
-        /// <param name="count">The maximum count of outdated stations to return.</param>
-        /// <returns>A list of outdated stations, sorted by age, descending.</returns>
-        public static List<Station> FindOutdatedStations(TimeSpan minimumAge, int count)
-        {
-            throw new NotImplementedException();
-        }
+        public DateTime UpdatedAt { get; private set; }
+
+        public StarSystem System { get; private set; }
     }
 }
