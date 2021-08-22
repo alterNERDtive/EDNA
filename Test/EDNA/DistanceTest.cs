@@ -52,7 +52,7 @@ namespace Test.Edna
         [Fact]
         public void SomeExampleDistancesWithImprecision()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

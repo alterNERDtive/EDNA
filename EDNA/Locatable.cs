@@ -71,7 +71,8 @@ namespace alterNERDtive.Edna
         public double Z { get; }
 
         /// <summary>
-        /// Gets the precision to which the location can be calculated.
+        /// Gets the precision to which the location can be calculated. This is
+        /// an actual ± for distance, not a precision _per axis_ as for a Location.
         /// </summary>
         public int Precision { get; }
 
@@ -104,12 +105,23 @@ namespace alterNERDtive.Edna
             }
             else
             {
+                // Precision actually adds up weird. Since Location precision is
+                // per each individual axis, not a radius, we’re dealing with a
+                // cube, not a sphere.
+                //
+                // Therefore for a precision p the system can be √(p²+p²+p²) =
+                // √(3p²) = √3*p light years from the exact coordinates.
+                //
+                // For a distance between two Locations with precision p,q these
+                // add up as √3(p+q). This is only the worst case scenario and
+                // can be less depending on the angle, but worst case is fine
+                // here.
                 return new Distance(
                     value: Math.Sqrt(
                         Math.Pow(this.X - location.X, 2)
                         + Math.Pow(this.Y - location.Y, 2)
                         + Math.Pow(this.Z - location.Z, 2)),
-                    precision: this.Precision + location.Precision);
+                    precision: (int)Math.Ceiling(Math.Sqrt(3) * (this.Precision + location.Precision)));
             }
         }
     }
