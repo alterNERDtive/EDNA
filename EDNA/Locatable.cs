@@ -77,7 +77,7 @@ namespace alterNERDtive.Edna
         public int Precision { get; }
 
         public static bool operator ==(Location a, Location b)
-            => a.X == b.X && a.Y == b.Y && a.Z == b.Z && a.Precision == b.Precision;
+            => a.X == b.X && a.Y == b.Y && a.Z == b.Z && a.Precision == 0 && b.Precision == 0;
 
         public static bool operator !=(Location a, Location b)
             => !(a == b);

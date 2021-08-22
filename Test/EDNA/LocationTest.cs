@@ -58,5 +58,16 @@ namespace Test.Edna
             Assert.NotEqual(new Location(1.1, 2.2, 3.3), new Location(1.1, 2.2, 3.3, 1));
             Assert.NotEqual(new Location(1.1, 2.2, 3.3, 0), new Location(1.1, 2.2, 3.3, 1));
         }
+
+        /// <summary>
+        /// Tests if two Locations with the same coordinates AND some
+        /// SAME imprecision are correctly not considered equal.
+        /// </summary>
+        [Fact]
+        public void NotEqualIfSameImprecision()
+        {
+            Assert.NotEqual(new Location(0, 0, 0, 5), new Location(0, 0, 0, 5));
+            Assert.NotEqual(new Location(1, 2, 3, 5), new Location(1, 2, 3, 5));
+        }
     }
 }
