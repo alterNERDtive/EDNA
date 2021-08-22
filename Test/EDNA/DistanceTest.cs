@@ -41,7 +41,7 @@ namespace Test.Edna
             Distance distance;
 
             distance = new Location(0, 0, 0).DistanceTo(new Location(10, 10, 10));
-            Assert.Equal(expected: 17.3205080756888, actual: distance.Value);
+            Assert.Equal(expected: Math.Round(17.3205080756888, 4), actual: Math.Round(distance.Value, 4));
             Assert.Equal(expected: 0, actual: distance.Precision);
         }
 
