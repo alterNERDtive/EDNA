@@ -20,6 +20,7 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace alterNERDtive.Edna.Edts
 {
@@ -115,9 +116,9 @@ namespace alterNERDtive.Edna.Edts
         /// </summary>
         /// <param name="name">A procedurally generated system name.</param>
         /// <returns>The system with calculated coordinates.</returns>
-        public static StarSystem FindSystem(string name)
+        public static async Task<StarSystem> FindSystem(string name)
         {
-            HttpResponseMessage response = ApiClient.GetAsync($"system_position/{name}").Result;
+            HttpResponseMessage response = await ApiClient.GetAsync($"system_position/{name}");
 
             // EDTS API gives a 400 status code (and an empty result) if the
             // system name is not valid.
