@@ -30,6 +30,9 @@ namespace alterNERDtive.Edna
     /// </summary>
     public class StarSystem : Locatable
     {
+        private static readonly Dictionary<string, StarSystem> NameCache = new Dictionary<string, StarSystem>();
+        private static readonly Dictionary<ulong, StarSystem> Id64Cache = new Dictionary<ulong, StarSystem>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StarSystem"/> class.
         /// </summary>
@@ -64,6 +67,11 @@ namespace alterNERDtive.Edna
         public new Location Coordinates { get => throw new NotImplementedException(); }
 
         /// <summary>
+        /// Gets the system’s stations.
+        /// </summary>
+        public Station[] Stations { get => throw new NotImplementedException(); }
+
+        /// <summary>
         /// Finds a star system by name.
         ///
         /// System names are not necessarily unique.
@@ -72,7 +80,16 @@ namespace alterNERDtive.Edna
         /// <returns>The matching system.</returns>
         public static StarSystem Find(string name)
         {
-            return new StarSystem(name); // FIXXME: singleton, caching, …
+            if (NameCache.ContainsKey(name))
+            {
+                return NameCache[name];
+            }
+            else
+            {
+                StarSystem system = new StarSystem(name);
+                NameCache[name] = system;
+                return system;
+            }
         }
 
         /// <summary>
@@ -82,7 +99,16 @@ namespace alterNERDtive.Edna
         /// <returns>The matching system.</returns>
         public static StarSystem Find(ulong id64)
         {
-            return new StarSystem(id64); // FIXXME: singleton, caching, …
+            if (Id64Cache.ContainsKey(id64))
+            {
+                return Id64Cache[id64];
+            }
+            else
+            {
+                StarSystem system = new StarSystem(id64);
+                Id64Cache[id64] = system;
+                return system;
+            }
         }
 
         /// <summary>
