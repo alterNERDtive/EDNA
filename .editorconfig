@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# IDE0021: Use block body for constructors
+csharp_style_expression_bodied_constructors = when_on_single_line
+
+# IDE0024: Use block body for operators
+csharp_style_expression_bodied_operators = when_on_single_line

@@ -40,9 +40,7 @@ namespace alterNERDtive.Edna
         /// <param name="z">The z coordinate.</param>
         /// <param name="precision">The available precision.</param>
         public Location(double x, double y, double z, int precision)
-        {
-            (this.X, this.Y, this.Z, this.Precision) = (x, y, z, precision);
-        }
+            => (this.X, this.Y, this.Z, this.Precision) = (x, y, z, precision);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Location"/> struct.
@@ -51,9 +49,14 @@ namespace alterNERDtive.Edna
         /// <param name="y">The y coordinate.</param>
         /// <param name="z">The z coordinate.</param>
         public Location(double x, double y, double z)
-        {
-            (this.X, this.Y, this.Z, this.Precision) = (x, y, z, 0);
-        }
+            => (this.X, this.Y, this.Z, this.Precision) = (x, y, z, 0);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Location"/> struct.
+        /// </summary>
+        /// <param name="location">An EDTS Location to convert.</param>
+        public Location(Edts.Location location)
+            => (this.X, this.Y, this.Z, this.Precision) = (location.X, location.Y, location.Z, location.Precision);
 
         /// <summary>
         /// Gets the x coordinate.
@@ -99,9 +102,9 @@ namespace alterNERDtive.Edna
         /// <returns>The distance between both locations.</returns>
         public Distance DistanceTo(Location location)
         {
-            if (this == location)
+            if (this == location && this.Precision == 0)
             {
-                return new Distance(value: 0, precision: 0);
+                return new Distance(value: 0);
             }
             else
             {
@@ -137,8 +140,8 @@ namespace alterNERDtive.Edna
         /// </summary>
         /// <param name="value">The distance, with absolute precision.</param>
         public Distance(double value)
+            : this(value: value, precision: 0)
         {
-            (this.Value, this.Precision) = (value, 0);
         }
 
         /// <summary>

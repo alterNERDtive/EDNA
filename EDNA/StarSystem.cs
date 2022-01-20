@@ -61,7 +61,7 @@ namespace alterNERDtive.Edna
         /// <summary>
         /// Gets the system’s Location in the galaxy.
         /// </summary>
-        public new Location Coordinates { get; private set; }
+        public new Location Coordinates { get => throw new NotImplementedException(); }
 
         /// <summary>
         /// Finds a star system by name.
