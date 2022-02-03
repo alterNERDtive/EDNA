@@ -19,8 +19,9 @@
 
 using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
+using RestSharp;
 
 namespace alterNERDtive.Edna.Edts
 {
@@ -98,18 +99,8 @@ namespace alterNERDtive.Edna.Edts
     /// </summary>
     public class EdtsApi
     {
-        private static readonly string ApiUrl = "http://edts.thargoid.space/api/v1/";
-        private static readonly HttpClient ApiClient;
-
-        static EdtsApi()
-        {
-            ApiClient = new HttpClient
-            {
-                BaseAddress = new Uri(ApiUrl),
-            };
-            ApiClient.DefaultRequestHeaders.Accept.Clear();
-            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
+        private static readonly string ApiUrl = "http://edts.thargoid.space/api/v1";
+        private static readonly RestClient ApiClient = new RestClient(ApiUrl);
 
         /// <summary>
         /// Pulls system data for a given procedurally generated system name.
@@ -118,25 +109,56 @@ namespace alterNERDtive.Edna.Edts
         /// <returns>The system with calculated coordinates.</returns>
         public static async Task<StarSystem> FindSystem(string name)
         {
-            HttpResponseMessage response = await ApiClient.GetAsync($"system_position/{name}");
-
-            // EDTS API gives a 400 status code (and an empty result) if the
-            // system name is not valid.
-            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            try
             {
-                throw new ArgumentException($"“{name}” is not a valid proc gen system name.", paramName: "name");
+                ApiResult response = await ApiClient.GetAsync<ApiResult>(new RestRequest($"system_position/{name}"));
+
+                ApiResult.ApiSystem result = response.Result!.Value;
+
+                return new StarSystem(
+                    name: name,
+                    coordinates: new Location(
+                        x: (int)result.Position.X,
+                        y: (int)result.Position.Y,
+                        z: (int)result.Position.Z,
+                        precision: (int)result.Uncertainty));
             }
+            catch (HttpRequestException e)
+            {
+                // EDTS API gives a 400 status code (and an empty result) if the
+                // system name is not valid.
+                if (e.Message.Equals("Request failed with status code BadRequest"))
+                {
+                    throw new ArgumentException(message: $"“{name}” is not a valid proc gen system name.", paramName: nameof(name));
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
 
-            response.EnsureSuccessStatusCode();
-            dynamic json = response.Content.ReadAsAsync<dynamic>().Result["result"];
+        private struct ApiResult
+        {
+            public ApiSystem? Result { get; set; }
 
-            return new StarSystem(
-                name: name,
-                coordinates: new Location(
-                    x: (int)json["position"]["x"],
-                    y: (int)json["position"]["y"],
-                    z: (int)json["position"]["z"],
-                    precision: (int)json["uncertainty"]));
+            public struct ApiSystem
+            {
+                public string Name { get; set; }
+
+                public ApiLocation Position { get; set; }
+
+                public decimal Uncertainty { get; set; }
+
+                public struct ApiLocation
+                {
+                    public decimal X { get; set; }
+
+                    public decimal Y { get; set; }
+
+                    public decimal Z { get; set; }
+                }
+            }
         }
     }
 }
