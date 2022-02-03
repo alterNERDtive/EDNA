@@ -1,4 +1,4 @@
-﻿// <copyright file="SystemTest.cs" company="alterNERDtive">
+﻿// <copyright file="StarSystemTest.cs" company="alterNERDtive">
 // Copyright 2021 alterNERDtive.
 //
 // This file is part of EDNA.
@@ -17,14 +17,8 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
 using alterNERDtive.Edna;
+using Xunit;
 
 namespace Test.Edna
 {

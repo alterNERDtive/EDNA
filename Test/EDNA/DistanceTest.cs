@@ -27,11 +27,11 @@ using Xunit;
 
 namespace Test.Edna
 {
-
     /// <summary>
     /// Tests all thisg Distance.
     /// </summary>
-    public class DistanceTest { 
+    public class DistanceTest
+    {
         /// <summary>
         /// Tests if the calculations are correct for some known distances.
         /// </summary>

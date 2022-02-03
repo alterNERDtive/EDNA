@@ -95,7 +95,7 @@ namespace alterNERDtive.Edna
         /// <summary>
         /// Finds a star system by id64.
         /// </summary>
-        /// <param name="id64">The system’s id64</param>
+        /// <param name="id64">The system’s id64.</param>
         /// <returns>The matching system.</returns>
         public static StarSystem Find(ulong id64)
         {
