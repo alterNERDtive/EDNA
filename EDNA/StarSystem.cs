@@ -32,6 +32,7 @@ namespace alterNERDtive.Edna
     {
         private static readonly Dictionary<string, StarSystem> NameCache = new Dictionary<string, StarSystem>();
         private static readonly Dictionary<ulong, StarSystem> Id64Cache = new Dictionary<ulong, StarSystem>();
+        private Coordinates? coordinates = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StarSystem"/> class.
@@ -64,7 +65,31 @@ namespace alterNERDtive.Edna
         /// <summary>
         /// Gets the system’s Location in the galaxy.
         /// </summary>
-        public new Location Coordinates { get => throw new NotImplementedException(); }
+        public new Coordinates Coordinates
+        {
+            get
+            {
+                return this.GetCoordinatesAsync().Result;
+            }
+        }
+
+        /// <summary>
+        /// Gets the systems Location in the galaxy, asynchronously. If you want
+        /// blocking access, use the Property instead.
+        /// </summary>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        public async Task<Coordinates> GetCoordinatesAsync()
+        {
+            if (this.coordinates == null)
+            {
+                // query EDSM
+                // query spansh
+                // query EDTS
+                this.coordinates = new Coordinates(await Edts.EdtsApi.FindSystem(this.Name));
+            }
+
+            return this.coordinates.Value;
+        }
 
         /// <summary>
         /// Gets the system’s stations.
