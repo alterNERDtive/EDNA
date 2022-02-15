@@ -39,8 +39,8 @@ namespace Test.Edts
         /// </summary>
         /// <param name="name">The system name.</param>
         [Theory]
-        [InlineData("Oevasy SG-Y D0")]
-        [InlineData("Oevasy AB-C D0-1")]
+        [InlineData("Oevasy SG-Y d0")]
+        [InlineData("Oevasy AB-C d1-2")]
         public async Task ProcGen_Valid(string name)
         {
             StarSystem system = await EdtsApi.FindSystem(name: name);
@@ -53,9 +53,9 @@ namespace Test.Edts
         /// </summary>
         /// <param name="name">The system name.</param>
         [Theory]
-        [InlineData("Ysaveo YG-S D0")]
+        [InlineData("Ysaveo YG-S d0")]
         [InlineData("Oevasy SG-Y")]
-        [InlineData("Oevasy SG-Y D")]
+        [InlineData("Oevasy SG-Y d")]
         [InlineData("Oevasy SG-Y 0")]
         public async Task ProcGen_Invalid(string name)
         {
@@ -67,17 +67,16 @@ namespace Test.Edts
         /// Pulls some systems from the EDTS API and checks if they still have
         /// the previously known coordinates.
         /// </summary>
-        /// <param name="name">The system name.</param>
-        /// <param name="coords">The expected coordinates.</param>
+        /// <param name="testSystem">The expected system/coordinates.</param>
         [Theory]
         [MemberData(nameof(Systems))]
-        public async Task ProcGen_Coordinates(string name, Location coords)
+        public async Task ProcGen_Coordinates(StarSystem testSystem)
         {
-            StarSystem system = await EdtsApi.FindSystem(name: name);
-            Assert.Equal(expected: coords.X, actual: system.Coordinates.X);
-            Assert.Equal(expected: coords.Y, actual: system.Coordinates.Y);
-            Assert.Equal(expected: coords.Z, actual: system.Coordinates.Z);
-            Assert.Equal(expected: coords.Precision, actual: system.Coordinates.Precision);
+            StarSystem system = await EdtsApi.FindSystem(name: testSystem.Name);
+            Assert.Equal(expected: testSystem.Position.X, actual: system.Position.X);
+            Assert.Equal(expected: testSystem.Position.Y, actual: system.Position.Y);
+            Assert.Equal(expected: testSystem.Position.Z, actual: system.Position.Z);
+            Assert.Equal(expected: testSystem.Uncertainty, actual: system.Uncertainty);
         }
 
         /// <summary>
@@ -86,10 +85,10 @@ namespace Test.Edts
         public static IEnumerable<object[]> Systems =>
             new List<object[]>
             {
-                new object[] { "Oevasy SG-Y D0", new Location(x: -1465, y: 15, z: 65615, precision: 40) },
-                new object[] { "Lysoorb AA-A b0", new Location(x: -55, y: -15, z: 6625, precision: 10) },
-                new object[] { "Dryau Aowsy AB-C D1-234", new Location(x: 775, y: 1615, z: 18255, precision: 40) },
-                new object[] { "Dryau Aowsy DC-B A4-321", new Location(x: 1170, y: 400, z: 18180, precision: 5) },
+                new object[] { new StarSystem { Name = "Oevasy SG-Y D0", Position = new StarSystem.Coordinates { X = -1465, Y = 15, Z = 65615 }, Uncertainty = 40 } },
+                new object[] { new StarSystem { Name = "Lysoorb AA-A b0", Position = new StarSystem.Coordinates { X = -55, Y = -15, Z = 6625 }, Uncertainty = 10 } },
+                new object[] { new StarSystem { Name = "Dryau Aowsy AB-C D1-234", Position = new StarSystem.Coordinates { X = 775, Y = 1615, Z = 18255 }, Uncertainty = 40 } },
+                new object[] { new StarSystem { Name = "Dryau Aowsy DC-B A4-321", Position = new StarSystem.Coordinates { X = 1170, Y = 400, Z = 18180 }, Uncertainty = 5 } },
             };
     }
 }

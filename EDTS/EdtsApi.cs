@@ -33,63 +33,29 @@ namespace alterNERDtive.Edna.Edts
     public struct StarSystem
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StarSystem"/> struct.
+        /// Gets or sets the system’s name.
         /// </summary>
-        /// <param name="name">The system’s name.</param>
-        /// <param name="coordinates">The system’s coordinates.</param>
-        public StarSystem(string name, Location coordinates)
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the system’s coordinates.
+        /// </summary>
+        public Coordinates Position { get; set; }
+
+        /// <summary>
+        /// Gets or sets the system’s positional uncertainty in light years.
+        /// </summary>
+        public decimal Uncertainty { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Really? For this?")]
+        public struct Coordinates
         {
-            (this.Name, this.Coordinates) = (name, coordinates);
+            public decimal X { get; set; }
+
+            public decimal Y { get; set; }
+
+            public decimal Z { get; set; }
         }
-
-        /// <summary>
-        /// Gets the system’s name.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        /// Gets the system’s coordinates.
-        /// </summary>
-        public Location Coordinates { get; }
-    }
-
-    /// <summary>
-    /// A location in the galaxy, represented by coordinates and a value for
-    /// precision (all in ly).
-    /// </summary>
-    public struct Location
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Location"/> struct.
-        /// </summary>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// <param name="z">The z coordinate.</param>
-        /// <param name="precision">The available precision.</param>
-        public Location(int x, int y, int z, int precision)
-        {
-            (this.X, this.Y, this.Z, this.Precision) = (x, y, z, precision);
-        }
-
-        /// <summary>
-        /// Gets the x coordinate.
-        /// </summary>
-        public int X { get; }
-
-        /// <summary>
-        /// Gets the y coordinate.
-        /// </summary>
-        public int Y { get; }
-
-        /// <summary>
-        /// Gets the z coordinate.
-        /// </summary>
-        public int Z { get; }
-
-        /// <summary>
-        /// Gets the precision to which the location can be calculated.
-        /// </summary>
-        public int Precision { get; private set; }
     }
 
     /// <summary>
@@ -111,17 +77,8 @@ namespace alterNERDtive.Edna.Edts
         {
             try
             {
-                ApiResult response = await ApiClient.GetAsync<ApiResult>(new RestRequest($"system_position/{name}"));
-
-                ApiResult.ApiSystem result = response.Result!.Value;
-
-                return new StarSystem(
-                    name: name,
-                    coordinates: new Location(
-                        x: (int)result.Position.X,
-                        y: (int)result.Position.Y,
-                        z: (int)result.Position.Z,
-                        precision: (int)result.Uncertainty));
+                ApiResult result = await ApiClient.GetAsync<ApiResult>(new RestRequest($"system_position/{name}"));
+                return result.Result!.Value;
             }
             catch (HttpRequestException e)
             {
@@ -140,25 +97,7 @@ namespace alterNERDtive.Edna.Edts
 
         private struct ApiResult
         {
-            public ApiSystem? Result { get; set; }
-
-            public struct ApiSystem
-            {
-                public string Name { get; set; }
-
-                public ApiLocation Position { get; set; }
-
-                public decimal Uncertainty { get; set; }
-
-                public struct ApiLocation
-                {
-                    public decimal X { get; set; }
-
-                    public decimal Y { get; set; }
-
-                    public decimal Z { get; set; }
-                }
-            }
+            public StarSystem? Result { get; set; }
         }
     }
 }
