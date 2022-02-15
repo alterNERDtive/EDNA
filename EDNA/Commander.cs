@@ -50,6 +50,6 @@ namespace alterNERDtive.Edna
 
         public StarSystem StarSystem { get; private set; }
 
-        public new Location Coordinates { get; private set; }
+        public new Coordinates Coordinates { get; private set; }
     }
 }

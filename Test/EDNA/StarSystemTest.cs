@@ -35,11 +35,11 @@ namespace Test.Edna
         {
             Distance distance;
 
-            distance = StarSystem.Find("Sol").DistanceTo(new Location(0, 0, 0));
+            distance = StarSystem.Find("Sol").DistanceTo(new Coordinates(0, 0, 0));
             Assert.Equal(expected: 0, actual: distance.Value);
             Assert.Equal(expected: 0, actual: distance.Precision);
 
-            distance = StarSystem.Find("Sol").DistanceTo(new Location(0, 0, 0, 0));
+            distance = StarSystem.Find("Sol").DistanceTo(new Coordinates(0, 0, 0, 0));
             Assert.Equal(expected: 0, actual: distance.Value);
             Assert.Equal(expected: 0, actual: distance.Precision);
         }

@@ -30,33 +30,34 @@ namespace alterNERDtive.Edna
     /// precision (all in ly).
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:File name should match first type name", Justification = "Either this or wrong class/struct order 🤷")]
-    public struct Location
+    public struct Coordinates
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Location"/> struct.
+        /// Initializes a new instance of the <see cref="Coordinates"/> struct.
         /// </summary>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="z">The z coordinate.</param>
         /// <param name="precision">The available precision.</param>
-        public Location(double x, double y, double z, int precision)
+        public Coordinates(double x, double y, double z, int precision)
             => (this.X, this.Y, this.Z, this.Precision) = (x, y, z, precision);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Location"/> struct.
+        /// Initializes a new instance of the <see cref="Coordinates"/> struct.
         /// </summary>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="z">The z coordinate.</param>
-        public Location(double x, double y, double z)
+        public Coordinates(double x, double y, double z)
             => (this.X, this.Y, this.Z, this.Precision) = (x, y, z, 0);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Location"/> struct.
+        /// Initializes a new instance of the <see cref="Coordinates"/> struct.
         /// </summary>
-        /// <param name="location">An EDTS Location to convert.</param>
-        public Location(Edts.Location location)
-            => (this.X, this.Y, this.Z, this.Precision) = (location.X, location.Y, location.Z, location.Precision);
+        /// <param name="edtsSystem">An EDTS system/location to convert.</param>
+        public Coordinates(Edts.StarSystem edtsSystem)
+            => (this.X, this.Y, this.Z, this.Precision)
+                = ((int)edtsSystem.Position.X, (int)edtsSystem.Position.Y, (int)edtsSystem.Position.Z, (int)edtsSystem.Uncertainty);
 
         /// <summary>
         /// Gets the x coordinate.
@@ -79,15 +80,15 @@ namespace alterNERDtive.Edna
         /// </summary>
         public int Precision { get; }
 
-        public static bool operator ==(Location a, Location b)
+        public static bool operator ==(Coordinates a, Coordinates b)
             => a.X == b.X && a.Y == b.Y && a.Z == b.Z && a.Precision == 0 && b.Precision == 0;
 
-        public static bool operator !=(Location a, Location b)
+        public static bool operator !=(Coordinates a, Coordinates b)
             => !(a == b);
 
         /// <inheritdoc/>
         public override bool Equals(object o)
-            => o is Location location && this == location;
+            => o is Coordinates location && this == location;
 
         /// <inheritdoc/>
         public override int GetHashCode()
@@ -100,7 +101,7 @@ namespace alterNERDtive.Edna
         /// </summary>
         /// <param name="location">The other location.</param>
         /// <returns>The distance between both locations.</returns>
-        public Distance DistanceTo(Location location)
+        public Distance DistanceTo(Coordinates location)
         {
             if (this == location && this.Precision == 0)
             {
@@ -173,7 +174,7 @@ namespace alterNERDtive.Edna
         /// <summary>
         /// Gets the object’s location in the galaxy.
         /// </summary>
-        public Location Coordinates { get; private set; }
+        public Coordinates Coordinates { get; private set; }
 
         /// <summary>
         /// The distance to another Locatable object.
@@ -190,7 +191,7 @@ namespace alterNERDtive.Edna
         /// </summary>
         /// <param name="location">The Location to compare to.</param>
         /// <returns>The distance to said Location.</returns>
-        public Distance DistanceTo(Location location)
+        public Distance DistanceTo(Coordinates location)
         {
             return this.Coordinates.DistanceTo(location);
         }

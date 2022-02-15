@@ -38,8 +38,8 @@ namespace Test.Edna
         [Fact]
         public void ZeroLocationEquals()
         {
-            Assert.Equal(new Location(0, 0, 0), new Location(0, 0, 0));
-            Assert.Equal(new Location(0, 0, 0), new Location(0, 0, 0, 0));
+            Assert.Equal(new Coordinates(0, 0, 0), new Coordinates(0, 0, 0));
+            Assert.Equal(new Coordinates(0, 0, 0), new Coordinates(0, 0, 0, 0));
         }
 
         /// <summary>
@@ -49,14 +49,14 @@ namespace Test.Edna
         [Fact]
         public void NotEqualIfPrecisionDifferent()
         {
-            Assert.NotEqual(new Location(0, 0, 0), new Location(0, 0, 0, 1));
-            Assert.NotEqual(new Location(0, 0, 0, 0), new Location(0, 0, 0, 1));
+            Assert.NotEqual(new Coordinates(0, 0, 0), new Coordinates(0, 0, 0, 1));
+            Assert.NotEqual(new Coordinates(0, 0, 0, 0), new Coordinates(0, 0, 0, 1));
 
-            Assert.NotEqual(new Location(1, 2, 3), new Location(1, 2, 3, 1));
-            Assert.NotEqual(new Location(1, 2, 3, 0), new Location(1, 2, 3, 1));
+            Assert.NotEqual(new Coordinates(1, 2, 3), new Coordinates(1, 2, 3, 1));
+            Assert.NotEqual(new Coordinates(1, 2, 3, 0), new Coordinates(1, 2, 3, 1));
 
-            Assert.NotEqual(new Location(1.1, 2.2, 3.3), new Location(1.1, 2.2, 3.3, 1));
-            Assert.NotEqual(new Location(1.1, 2.2, 3.3, 0), new Location(1.1, 2.2, 3.3, 1));
+            Assert.NotEqual(new Coordinates(1.1, 2.2, 3.3), new Coordinates(1.1, 2.2, 3.3, 1));
+            Assert.NotEqual(new Coordinates(1.1, 2.2, 3.3, 0), new Coordinates(1.1, 2.2, 3.3, 1));
         }
 
         /// <summary>
@@ -66,8 +66,8 @@ namespace Test.Edna
         [Fact]
         public void NotEqualIfSameImprecision()
         {
-            Assert.NotEqual(new Location(0, 0, 0, 5), new Location(0, 0, 0, 5));
-            Assert.NotEqual(new Location(1, 2, 3, 5), new Location(1, 2, 3, 5));
+            Assert.NotEqual(new Coordinates(0, 0, 0, 5), new Coordinates(0, 0, 0, 5));
+            Assert.NotEqual(new Coordinates(1, 2, 3, 5), new Coordinates(1, 2, 3, 5));
         }
     }
 }
