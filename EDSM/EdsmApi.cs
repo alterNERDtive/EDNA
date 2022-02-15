@@ -17,16 +17,33 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EDSM
+namespace Edsm
 {
-    public class EdsmApi
+    /// <summary>
+    /// Coordinates represent a location in space.
+    /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1649:File name should match first type name", Justification = "Stupid rule :)")]
+    public struct Coordinates
     {
-        private readonly string url = "https://www.edsm.net/api-";
+        /// <summary>
+        /// Gets or sets the X coordinate.
+        /// </summary>
+        public double X { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Y coordinate.
+        /// </summary>
+        public double Y { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Z coordinate.
+        /// </summary>
+        public double Z { get; set; }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return $"({this.X},{this.Y},{this.Z})";
+        }
     }
 }

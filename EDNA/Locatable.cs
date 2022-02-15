@@ -60,6 +60,14 @@ namespace alterNERDtive.Edna
                 = ((int)edtsSystem.Position.X, (int)edtsSystem.Position.Y, (int)edtsSystem.Position.Z, (int)edtsSystem.Uncertainty);
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Coordinates"/> struct.
+        /// </summary>
+        /// <param name="edsmSystem">An EDSM system to convert.</param>
+        public Coordinates(Edsm.ApiSystem edsmSystem)
+            => (this.X, this.Y, this.Z, this.Precision)
+                = (edsmSystem.Coords.Value.X, edsmSystem.Coords.Value.Y, edsmSystem.Coords.Value.Z, 0);
+
+        /// <summary>
         /// Gets the x coordinate.
         /// </summary>
         public double X { get; }
