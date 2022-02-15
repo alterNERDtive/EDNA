@@ -75,24 +75,13 @@ namespace alterNERDtive.Edna.Edts
         /// <returns>The system with calculated coordinates.</returns>
         public static async Task<StarSystem> FindSystem(string name)
         {
-            try
+            RestResponse<ApiResult> response = await ApiClient.ExecuteAsync<ApiResult>(new RestRequest($"system_position/{name}"));
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
-                ApiResult result = await ApiClient.GetAsync<ApiResult>(new RestRequest($"system_position/{name}"));
-                return result.Result!.Value;
+                throw new ArgumentException(message: $"“{name}” is not a valid proc gen system name.", paramName: nameof(name));
             }
-            catch (HttpRequestException e)
-            {
-                // EDTS API gives a 400 status code (and an empty result) if the
-                // system name is not valid.
-                if (e.Message.Equals("Request failed with status code BadRequest"))
-                {
-                    throw new ArgumentException(message: $"“{name}” is not a valid proc gen system name.", paramName: nameof(name));
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            return response.Data.Result!.Value;
         }
 
         private struct ApiResult
