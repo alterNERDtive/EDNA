@@ -1,5 +1,5 @@
 ﻿// <copyright file="StarSystems.cs" company="alterNERDtive">
-// Copyright 2021 alterNERDtive.
+// Copyright 2021–2022 alterNERDtive.
 //
 // This file is part of EDNA.
 //
@@ -16,6 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
+
+#nullable enable
 
 using System;
 using System.Collections.Generic;

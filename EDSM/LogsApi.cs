@@ -17,6 +17,8 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
+#nullable enable
+
 using System;
 using System.Threading.Tasks;
 using RestSharp;
@@ -46,7 +48,7 @@ namespace Edsm
         /// Gets or sets the commander’s current system. Will be “null” if the
         /// commander’s flight log is hidden.
         /// </summary>
-        public string System { get; set; }
+        public string? System { get; set; }
 
         /// <summary>
         /// Gets or sets whether the commander has first discovered their

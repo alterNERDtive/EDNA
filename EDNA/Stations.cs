@@ -1,5 +1,5 @@
 ﻿// <copyright file="Stations.cs" company="alterNERDtive">
-// Copyright 2021 alterNERDtive.
+// Copyright 2021–2022 alterNERDtive.
 //
 // This file is part of EDNA.
 //
@@ -17,11 +17,10 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace alterNERDtive.Edna
 {

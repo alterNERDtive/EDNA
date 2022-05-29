@@ -17,6 +17,8 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -319,7 +321,7 @@ namespace Edsm
                 throw new ArgumentException($"No systems found within {radius} ly of {coords}.");
             }
 
-            return response.Data;
+            return response.Data!;
         }
 
         /// <summary>
@@ -350,7 +352,7 @@ namespace Edsm
                 throw new ArgumentException($"No systems found in a cube of {boundarySize} ly boundary size around “{name}”.");
             }
 
-            return response.Data;
+            return response.Data!;
         }
 
         /// <summary>
@@ -390,13 +392,13 @@ namespace Edsm
         {
             if (response.ResponseStatus != ResponseStatus.Completed)
             {
-                if (response.ErrorException is System.Text.Json.JsonException && response.Content.Equals("[]"))
+                if (response.ErrorException is System.Text.Json.JsonException && response.Content!.Equals("[]"))
                 {
                     throw new ArgumentException();
                 }
                 else
                 {
-                    throw response.ErrorException;
+                    throw response.ErrorException!;
                 }
             }
         }
