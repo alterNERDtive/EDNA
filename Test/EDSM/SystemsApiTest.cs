@@ -17,8 +17,6 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
-#nullable enable
-
 #pragma warning disable SA1615 // Element return value should be documented
 
 using System;

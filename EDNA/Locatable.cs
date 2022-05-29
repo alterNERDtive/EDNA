@@ -17,8 +17,6 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
-#nullable enable
-
 using System;
 
 namespace alterNERDtive.Edna
@@ -64,6 +62,14 @@ namespace alterNERDtive.Edna
         public Coordinates(Edsm.ApiSystem edsmSystem)
             => (this.X, this.Y, this.Z, this.Precision)
                 = (edsmSystem.Coords.Value.X, edsmSystem.Coords.Value.Y, edsmSystem.Coords.Value.Z, 0);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Coordinates"/> struct.
+        /// </summary>
+        /// <param name="edsmCoords">A set of EDSM coordinates to convert.</param>
+        public Coordinates(Edsm.Coordinates edsmCoords)
+            => (this.X, this.Y, this.Z, this.Precision)
+                = (edsmCoords.X, edsmCoords.Y, edsmCoords.Z, 0);
 
         /// <summary>
         /// Gets the x coordinate.

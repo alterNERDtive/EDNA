@@ -20,8 +20,6 @@
 #pragma warning disable SA1615 // Element return value should be documented
 #pragma warning disable SA1201 // Elements should appear in the correct order
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

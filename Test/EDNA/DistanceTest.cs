@@ -17,8 +17,6 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
-#nullable enable
-
 using System;
 using alterNERDtive.Edna;
 using Xunit;

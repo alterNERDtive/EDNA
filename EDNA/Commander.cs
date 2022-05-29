@@ -17,8 +17,6 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,26 +30,77 @@ namespace alterNERDtive.Edna
     /// </summary>
     public class Commander : Locatable
     {
-        /// <summary>
         /// Initializes a new instance of the <see cref="Commander"/> class.
         /// </summary>
         /// <param name="name">The CMDR’s name.</param>
-        public Commander(string name)
-        {
-            this.Name = name;
-        }
+        /// <param name="apiKey">The CMDR’s EDSM API key.</param>
+        private Commander(string name, string? edsmProfileUrl, DateTime? lastActiveAt, StarSystem? starsystem, Coordinates? coordinates)
+            => (this.Name, this.EdsmProfileUrl, this.LastActiveAt, this.StarSystem, this.Coordinates) = (name, edsmProfileUrl, lastActiveAt, starsystem, coordinates);
 
         /// <summary>
         /// Gets the CMDR’s name.
         /// </summary>
         public string Name { get; }
 
-        public string EdsmProfileUrl { get; private set; }
+        /// <summary>
+        /// Gets the CMDR’s EDSM profile URL.
+        /// </summary>
+        public string? EdsmProfileUrl { get; }
 
-        public DateTime LastActiveAt { get; private set; }
+        /// <summary>
+        /// Gets the CMDR’s date of last activity.
+        /// </summary>
+        public DateTime? LastActiveAt { get; }
 
-        public StarSystem StarSystem { get; private set; }
+        /// <summary>
+        /// Gets the CMDR’s current star system.
+        /// </summary>
+        public StarSystem? StarSystem { get; }
 
-        public new Coordinates Coordinates { get; private set; }
+        /// <summary>
+        /// Gets the CMDR’s current coordinates.
+        /// </summary>
+        public new Coordinates? Coordinates { get; }
+
+        /// <summary>
+        /// Finds a CMDR by name. Optionally takes an EDSM API key to access a
+        /// private profile.
+        /// </summary>
+        /// <param name="name">The CMDR’s name.</param>
+        /// <param name="apiKey">The CMDR’s EDSM API key.</param>
+        /// <returns>The CMDR.</returns>
+        public static Commander Find(string name, string? apiKey = null)
+        {
+            return FindAsync(name, apiKey).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="apiKey"></param>
+        /// <returns></returns>
+        public static async Task<Commander> FindAsync(string name, string? apiKey = null)
+        {
+            if (apiKey != null)
+            {
+                throw new NotImplementedException();
+            }
+
+            try
+            {
+                Edsm.ApiCmdr cmdr = await Edsm.LogsApi.FindCmdr(name);
+
+                return new Commander(name, cmdr.Url, DateTime.Parse(cmdr.DateLastActivity), StarSystem.Find(cmdr.SystemId64!.Value), new Coordinates(cmdr.Coordinates!.Value));
+            }
+            catch (ArgumentException e)
+            {
+                throw new CommanderNotFoundException(e.Message, e);
+            }
+            catch (AccessViolationException e)
+            {
+                throw new CommanderHiddenException(e.Message, e);
+            }
+        }
     }
 }

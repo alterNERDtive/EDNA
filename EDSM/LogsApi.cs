@@ -17,8 +17,6 @@
 // along with EDNA.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
 // </copyright>
 
-#nullable enable
-
 using System;
 using System.Threading.Tasks;
 using RestSharp;
@@ -42,7 +40,7 @@ namespace alterNERDtive.Edna.Edsm
         /// Gets or sets the API’s status message; see
         /// https://www.edsm.net/en/api-logs-v1 for details.
         /// </summary>
-        public string Message { get; set; }
+        public string Msg { get; set; }
 
         /// <summary>
         /// Gets or sets the commander’s current system. Will be “null” if the
@@ -61,7 +59,7 @@ namespace alterNERDtive.Edna.Edsm
         /// current system. Will be null if the commander’s flight log
         /// timestamps are hidden.
         /// </summary>
-        public DateTime? Date { get; set; }
+        public string? Date { get; set; }
 
         /// <summary>
         /// Gets or sets EDSM’s internal ID of the commander’s current system.
@@ -99,7 +97,7 @@ namespace alterNERDtive.Edna.Edsm
         /// Gets or sets the date time of docking at the commander’s currently
         /// docked station.
         /// </summary>
-        public DateTime? DateDocked { get; set; }
+        public string? DateDocked { get; set; }
 
         /// <summary>
         /// Gets or sets the ship ID of the commander’s current ship. That is
@@ -122,7 +120,7 @@ namespace alterNERDtive.Edna.Edsm
         /// Gets or sets the date and time of the commander’s last recorded
         /// activity. Will be “null” if the commander’s flight log is hidden.
         /// </summary>
-        public DateTime? DateLastActivity { get; set; }
+        public string? DateLastActivity { get; set; }
 
         /// <summary>
         /// Gets or sets the commander’s EDSM profile URL. Will be “null” if the
@@ -132,7 +130,7 @@ namespace alterNERDtive.Edna.Edsm
     }
 
     /// <summary>
-    /// 
+    /// Pulls data about CMDRs from the EDSM Logs API.
     /// </summary>
     public class LogsApi
     {
@@ -140,16 +138,16 @@ namespace alterNERDtive.Edna.Edsm
         private static readonly RestClient ApiClient = new RestClient(ApiUrl);
 
         /// <summary>
-        ///
+        /// Pulls data about a single CMDR from the EDSM Logs API.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="apiKey"></param>
+        /// <param name="name">The CMDR’s name.</param>
+        /// <param name="apiKey">The CMDR’s EDSM API key.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ApiCmdr> FindCmdr(string name, string? apiKey = null)
         {
             RestRequest request = new RestRequest("get-position")
                 .AddQueryParameter("commanderName", name)
-                .AddQueryParameter("showID", 1)
+                .AddQueryParameter("showId", 1)
                 .AddQueryParameter("showCoordinates", 1);
 
             if (apiKey != null)
@@ -161,7 +159,7 @@ namespace alterNERDtive.Edna.Edsm
 
             if (response.MsgNum == 203)
             {
-                throw new ArgumentException($"Cmdr “{name}” not found{(apiKey == null ? string.Empty : " and/or invalid API key")}.");
+                throw new ArgumentException($"Cmdr not found{(apiKey == null ? string.Empty : " and/or invalid API key")}.", name);
             }
             else if (response.MsgNum == 100 && response.System == null && response.FirstDiscover == null && response.Date == null)
             {
