@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using RestSharp;
 
-namespace Edsm
+namespace alterNERDtive.Edna.Edsm
 {
     /// <summary>
     /// A star system in the galaxy of Elite Dangerous, as returned from EDSM’s

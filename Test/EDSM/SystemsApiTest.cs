@@ -25,10 +25,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xunit;
-using Edsm;
 
-namespace Test.EDSM
+using alterNERDtive.Edna.Edsm;
+using Xunit;
+
+namespace Test.Edsm
 {
     /// <summary>
     /// Tests getting correct System data EDSM’s Systems API.
@@ -47,18 +48,18 @@ namespace Test.EDSM
             [Fact]
             public async Task SolData()
             {
-                Edsm.ApiSystem sol = await Edsm.SystemsApi.FindSystem(name: "Sol");
+                ApiSystem sol = await SystemsApi.FindSystem(name: "Sol");
 
                 Assert.Equal("Sol", sol.Name);
                 Assert.Equal<int>(27, sol.Id);
                 Assert.Equal<ulong>(10477373803, sol.Id64);
 
-                Edsm.Coordinates coords = sol.Coords.Value;
+                Coordinates coords = sol.Coords.Value;
                 Assert.Equal<double>(0, coords.X);
                 Assert.Equal<double>(0, coords.Y);
                 Assert.Equal<double>(0, coords.Z);
 
-                Edsm.ApiSystem.SystemInformation systemInformation = sol.Information.Value;
+                ApiSystem.SystemInformation systemInformation = sol.Information.Value;
                 Assert.Equal("Federation", systemInformation.Allegiance);
                 Assert.Equal("Democracy", systemInformation.Government);
                 Assert.Equal("Mother Gaia", systemInformation.Faction);
@@ -69,7 +70,7 @@ namespace Test.EDSM
                 Assert.Equal("Service", systemInformation.SecondEconomy);
                 Assert.Equal("Common", systemInformation.Reserve);
 
-                Edsm.ApiSystem.PrimaryStarInformation starInformation = sol.PrimaryStar.Value;
+                ApiSystem.PrimaryStarInformation starInformation = sol.PrimaryStar.Value;
                 Assert.Equal("G (White-Yellow) Star", starInformation.Type);
                 Assert.Equal("Sol", starInformation.Name);
                 Assert.True(starInformation.IsScoopable);
@@ -82,7 +83,7 @@ namespace Test.EDSM
             [Fact]
             public async Task InvalidSystemName()
             {
-                await Assert.ThrowsAsync<ArgumentException>(() => Edsm.SystemsApi.FindSystem(name: "Soll"));
+                await Assert.ThrowsAsync<ArgumentException>(() => SystemsApi.FindSystem(name: "Soll"));
             }
         }
 
@@ -99,7 +100,7 @@ namespace Test.EDSM
             [Fact]
             public async Task PartialBeaglePoint()
             {
-                List<Edsm.ApiSystem> systems = (await Edsm.SystemsApi.FindSystems(name: "Beagle Po")).ToList();
+                List<ApiSystem> systems = (await SystemsApi.FindSystems(name: "Beagle Po")).ToList();
                 Assert.Single(systems);
                 Assert.Equal("Beagle Point", systems.First().Name);
             }
@@ -111,7 +112,7 @@ namespace Test.EDSM
             [Fact]
             public async Task SolAndBeaglePoint()
             {
-                List<Edsm.ApiSystem> systems = (await Edsm.SystemsApi.FindSystems(names: new[] { "Sol", "Beagle Point", "Random Invalid Name" })).ToList();
+                List<ApiSystem> systems = (await SystemsApi.FindSystems(names: new[] { "Sol", "Beagle Point", "Random Invalid Name" })).ToList();
                 Assert.Equal<int>(2, systems.Count);
                 systems.Find(x => x.Name == "Sol");
                 systems.Find(x => x.Name == "Beagle Point");
@@ -131,7 +132,7 @@ namespace Test.EDSM
             [Fact]
             public async Task SphereAroundSol()
             {
-                List<Edsm.ApiSystem> systems = (await Edsm.SystemsApi.FindSystemsSphere(name: "Sol", minRadius: 9, radius: 10)).ToList();
+                List<ApiSystem> systems = (await SystemsApi.FindSystemsSphere(name: "Sol", minRadius: 9, radius: 10)).ToList();
                 Assert.Equal<int>(3, systems.Count);
                 systems.Find(x => x.Name == "Duamta" && x.Distance == 9.88 && x.BodyCount == 12);
                 systems.Find(x => x.Name == "Ross 154" && x.Distance == 9.69 && x.BodyCount == 9);
@@ -145,12 +146,12 @@ namespace Test.EDSM
             [Fact]
             public async Task SphereAround1000()
             {
-                List<Edsm.ApiSystem> systems =
-                    (await Edsm.SystemsApi.FindSystemsSphere(new Edsm.Coordinates { X = 1000, Y = 1000, Z = 1000 }, minRadius: 20, radius: 30)).ToList();
+                List<ApiSystem> systems =
+                    (await SystemsApi.FindSystemsSphere(new Coordinates { X = 1000, Y = 1000, Z = 1000 }, minRadius: 20, radius: 30)).ToList();
                 Assert.Single(systems);
                 Assert.Equal("Praea Euq ZK-M d8-3", systems.First().Name);
 
-                systems = (await Edsm.SystemsApi.FindSystemsSphere(new Edsm.Coordinates { X = 1000, Y = 1000, Z = 1000 }, radius: 30)).ToList();
+                systems = (await SystemsApi.FindSystemsSphere(new Coordinates { X = 1000, Y = 1000, Z = 1000 }, radius: 30)).ToList();
                 Assert.Equal(2, systems.Count);
                 systems.Find(x => x.Name == "Praea Euq ZK-M d8-3");
                 systems.Find(x => x.Name == "Praea Euq AH-X c17-0");
@@ -170,7 +171,7 @@ namespace Test.EDSM
             [Fact]
             public async Task CubeAroundSol()
             {
-                List<Edsm.ApiSystem> systems = (await Edsm.SystemsApi.FindSystemsCube(name: "Sol", boundarySize: 10)).ToList();
+                List<ApiSystem> systems = (await SystemsApi.FindSystemsCube(name: "Sol", boundarySize: 10)).ToList();
                 Assert.Equal<int>(3, systems.Count);
                 systems.Find(x => x.Name == "Barnard's Star" && x.Distance == 5.95 && x.BodyCount == 16);
                 systems.Find(x => x.Name == "Sol" && x.Distance == 0 && x.BodyCount == 40);
@@ -184,8 +185,8 @@ namespace Test.EDSM
             [Fact]
             public async Task CubeAround1000()
             {
-                List<Edsm.ApiSystem> systems =
-                    (await Edsm.SystemsApi.FindSystemsCube(new Edsm.Coordinates { X = 1000, Y = 1000, Z = 1000 }, boundarySize: 42)).ToList();
+                List<ApiSystem> systems =
+                    (await SystemsApi.FindSystemsCube(new Coordinates { X = 1000, Y = 1000, Z = 1000 }, boundarySize: 42)).ToList();
                 Assert.Equal(2, systems.Count);
                 systems.Find(x => x.Name == "Praea Euq ZK-M d8-3");
                 systems.Find(x => x.Name == "Praea Euq AH-X c17-0");

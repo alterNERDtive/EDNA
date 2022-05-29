@@ -23,7 +23,7 @@ using System;
 using System.Threading.Tasks;
 using RestSharp;
 
-namespace Edsm
+namespace alterNERDtive.Edna.Edsm
 {
     /// <summary>
     /// A Commander in the galaxy of Elite Dangerous, as returned from EDSM’s
@@ -131,11 +131,20 @@ namespace Edsm
         public string Url { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class LogsApi
     {
         private static readonly Uri ApiUrl = new Uri("https://www.edsm.net/api-logs-v1");
         private static readonly RestClient ApiClient = new RestClient(ApiUrl);
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="apiKey"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ApiCmdr> FindCmdr(string name, string? apiKey = null)
         {
             RestRequest request = new RestRequest("get-position")
@@ -149,6 +158,15 @@ namespace Edsm
             }
 
             ApiCmdr response = await ApiClient.GetAsync<ApiCmdr>(request);
+
+            if (response.MsgNum == 203)
+            {
+                throw new ArgumentException($"Cmdr “{name}” not found{(apiKey == null ? string.Empty : " and/or invalid API key")}.");
+            }
+            else if (response.MsgNum == 100 && response.System == null && response.FirstDiscover == null && response.Date == null)
+            {
+                throw new AccessViolationException($"Cmdr “{name}” has not made their profile and/or flight log public.");
+            }
 
             return response;
         }

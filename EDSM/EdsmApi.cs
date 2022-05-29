@@ -19,7 +19,7 @@
 
 #nullable enable
 
-namespace Edsm
+namespace alterNERDtive.Edna.Edsm
 {
     /// <summary>
     /// Coordinates represent a location in space.
