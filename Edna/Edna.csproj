@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;net6.0</TargetFrameworks>
-    <nullable>enable</nullable>
     <PackageId>alterNERDtive.EDNA</PackageId>
     <Version>0.0.1</Version>
     <Company>alterNERDtive</Company>
@@ -20,8 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EDSM\EDSM.csproj" PrivateAssets="All" />
-    <ProjectReference Include="..\EDTS\EDTS.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Edsm\Edsm.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Edts\Edts.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\Spansh\Spansh.csproj" PrivateAssets="All" />
   </ItemGroup>
 

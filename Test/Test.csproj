@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;net6.0</TargetFrameworks>
-	<nullable>enable</nullable>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -18,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EDNA\EDNA.csproj" />
-    <ProjectReference Include="..\EDSM\EDSM.csproj" />
-    <ProjectReference Include="..\EDTS\EDTS.csproj" />
+    <ProjectReference Include="..\Edna\Edna.csproj" />
+    <ProjectReference Include="..\Edsm\Edsm.csproj" />
+    <ProjectReference Include="..\Edts\Edts.csproj" />
     <ProjectReference Include="..\Spansh\Spansh.csproj" />
   </ItemGroup>
 

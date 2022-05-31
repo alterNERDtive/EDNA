@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;net6.0</TargetFrameworks>
-	<nullable>enable</nullable>
   </PropertyGroup>
 
   <ItemGroup>
