@@ -38,3 +38,6 @@ I couldn’t come up with a meaning for NA.
 - [ ] sanity check / refactoring
 - [ ] nuget package
 - [ ] Github Actions build / package automation
+
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/alterNERDtive?style=for-the-badge)](https://github.com/sponsors/alterNERDtive)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S1DLYBS)
