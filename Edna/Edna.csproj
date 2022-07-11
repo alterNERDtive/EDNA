@@ -5,11 +5,11 @@
     <PackageId>alterNERDtive.EDNA</PackageId>
     <Version>0.0.1</Version>
     <Company>alterNERDtive</Company>
-    <Authors>alteNERDtive</Authors>
+    <Authors>alterNERDtive</Authors>
     <Description>EDNA is a site-agnostic library for accessing 3rd-party information about star systems in Elite Dangerous.</Description>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://alterNERDtive.github.io/EDNA</PackageProjectUrl>
-    <Copyright>© 2021 alterNERDtive</Copyright>
+    <Copyright>© 2021–2022 alterNERDtive</Copyright>
     <PackageIcon>glider.jpg</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/alterNERDtive/EDNA</RepositoryUrl>
@@ -38,6 +38,7 @@
 
   <PropertyGroup>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
