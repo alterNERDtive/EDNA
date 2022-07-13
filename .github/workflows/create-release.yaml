@@ -42,3 +42,4 @@ jobs:
           artifacts: "Edna/bin/Release/alterNERDtive.EDNA.*.nupkg"
           bodyFile: "CHANGELOG.md"
           draft: true
+          token: ${{ secrets.RELEASE_TOKEN }}
